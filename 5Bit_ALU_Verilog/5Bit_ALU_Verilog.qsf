@@ -1,0 +1,85 @@
+# =========================================================
+# DEVICE (DE1-SoC)
+# =========================================================
+set_global_assignment -name FAMILY "Cyclone V"
+set_global_assignment -name DEVICE 5CSEMA5F31C6
+
+# =========================================================
+# TOP LEVEL ENTITY
+# =========================================================
+set_global_assignment -name TOP_LEVEL_ENTITY ALU_5Bit
+
+# =========================================================
+# CLOCK (50 MHz onboard)
+# =========================================================
+set_location_assignment PIN_AF14 -to clk
+
+# =========================================================
+# RESET (KEY[0])
+# =========================================================
+set_location_assignment PIN_AA14 -to rst
+
+# =========================================================
+# INPUT A → SW[0:4]
+# =========================================================
+set_location_assignment PIN_AB12 -to A_in[0]
+set_location_assignment PIN_AC12 -to A_in[1]
+set_location_assignment PIN_AF9 -to A_in[2]
+set_location_assignment PIN_AF10 -to A_in[3]
+set_location_assignment PIN_AD11 -to A_in[4]
+
+# =========================================================
+# INPUT B → SW[5:9]
+# =========================================================
+set_location_assignment PIN_AD12 -to B_in[0]
+set_location_assignment PIN_AE11 -to B_in[1]
+set_location_assignment PIN_AC9 -to B_in[2]
+set_location_assignment PIN_AD10 -to B_in[3]
+set_location_assignment PIN_AE12 -to B_in[4]
+
+# =========================================================
+# OPERATION SELECT (IMPORTANT)
+# =========================================================
+# You ONLY have SW[0–9], so reuse two switches
+# Example: reuse SW[8] and SW[9]
+
+set_location_assignment PIN_AD10 -to op[0]
+set_location_assignment PIN_AE12 -to op[1]
+
+# =========================================================
+# OUTPUT → LEDR[0:9]
+# =========================================================
+set_location_assignment PIN_V16 -to Y_out[0]
+set_location_assignment PIN_W16 -to Y_out[1]
+set_location_assignment PIN_V17 -to Y_out[2]
+set_location_assignment PIN_V18 -to Y_out[3]
+set_location_assignment PIN_W17 -to Y_out[4]
+set_location_assignment PIN_W19 -to Y_out[5]
+set_location_assignment PIN_Y19 -to Y_out[6]
+set_location_assignment PIN_W20 -to Y_out[7]
+set_location_assignment PIN_Y21 -to Y_out[8]
+set_location_assignment PIN_W21 -to Y_out[9]
+
+# =========================================================
+# IO STANDARD
+# =========================================================
+set_global_assignment -name EDA_SIMULATION_TOOL "Questa Altera FPGA (Verilog)"
+set_global_assignment -name LAST_QUARTUS_VERSION "25.1std.0 Lite Edition"
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
+set_global_assignment -name VERILOG_FILE ALU_5Bit.v
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to rst
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to A_in[*]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to B_in[*]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to op[*]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to Y_out[*]
+set_global_assignment -name VERILOG_FILE ALU_5Bit_tb.v
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
